@@ -5,7 +5,7 @@ use warnings;
 use DB::Pluggable::Constants ':all';
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Hook::Modular::Plugin';
@@ -187,7 +187,7 @@ please use the C<dbpluggable> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.01 of L<DB::Pluggable::BreakOnTestNumber>.
+This document describes version 0.02 of L<DB::Pluggable::BreakOnTestNumber>.
 
 =head1 BUGS AND LIMITATIONS
 

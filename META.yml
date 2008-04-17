@@ -22,4 +22,4 @@ requires:
   Hook::LexWrap: 0
   Hook::Modular: 0
   perl: 5.6.0
-version: 0.01
+version: 0.02

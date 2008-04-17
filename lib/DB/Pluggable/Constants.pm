@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Exporter';
@@ -81,7 +81,7 @@ please use the C<dbpluggable> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.01 of L<DB::Pluggable::Constants>.
+This document describes version 0.02 of L<DB::Pluggable::Constants>.
 
 =head1 BUGS AND LIMITATIONS
 

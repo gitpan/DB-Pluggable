@@ -9,7 +9,7 @@ use Hook::LexWrap;
 use base 'Hook::Modular';
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use constant PLUGIN_NAMESPACE => 'DB::Pluggable';
@@ -22,7 +22,8 @@ sub enable_watchfunction {
 }
 
 
-package DB;
+package # hide from PAUSE indexer
+    DB;
 
 # switch package so as to get the desired stack trace
 
@@ -217,7 +218,7 @@ please use the C<dbpluggable> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.01 of L<DB::Pluggable>.
+This document describes version 0.02 of L<DB::Pluggable>.
 
 =head1 BUGS AND LIMITATIONS
 
