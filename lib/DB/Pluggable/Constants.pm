@@ -1,33 +1,14 @@
 package DB::Pluggable::Constants;
-
 use strict;
 use warnings;
-
-
-our $VERSION = '0.02';
-
-
+our $VERSION = '0.04';
 use base 'Exporter';
-
-
-our %EXPORT_TAGS = (
-    util  => [ qw(HANDLED DECLINED) ],
-);
-
-
+our %EXPORT_TAGS = (util => [qw(HANDLED DECLINED)],);
 our @EXPORT_OK = @{ $EXPORT_TAGS{all} = [ map { @$_ } values %EXPORT_TAGS ] };
-
-
 use constant HANDLED  => '200';
 use constant DECLINED => '500';
-
-
 1;
-
-
 __END__
-
-
 
 =head1 NAME
 
@@ -41,9 +22,9 @@ DB::Pluggable::Constants - Constants for debugger plugin hook methods
 
     sub do_it {
         my ($self, $context, $args) = @_;
-        ...
-        if (...) {
-            ...
+        # ...
+        if ("some condition") {
+            # ...
             return HANDLED;
         } else {
             return DECLINED;
@@ -74,21 +55,11 @@ these constants to determine whether a command has been handled by one of the
 plugins or whether it should be passed on to the default command handler
 defined in C<perl5db.pl>.
 
-=head1 TAGS
-
-If you talk about this module in blogs, on del.icio.us or anywhere else,
-please use the C<dbpluggable> tag.
-
-=head1 VERSION 
-                   
-This document describes version 0.02 of L<DB::Pluggable::Constants>.
-
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
-Please report any bugs or feature requests to
-C<<bug-db-pluggable@rt.cpan.org>>, or through the web interface at
+Please report any bugs or feature requests through the web interface at
 L<http://rt.cpan.org>.
 
 =head1 INSTALLATION
@@ -99,19 +70,21 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/DB-Pluggable/>.
 
-=head1 AUTHOR
+The development version lives at L<http://github.com/hanekomu/db-pluggable/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
+
+=head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2008 by Marcel GrE<uuml>nauer
+Copyright 2008-2009 by Marcel GrE<uuml>nauer.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
-
 =cut
-

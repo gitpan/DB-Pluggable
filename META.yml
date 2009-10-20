@@ -1,25 +1,32 @@
---- 
-abstract: ~
-author: 
-  - "{% ELSE %}"
-build_requires: 
-  Test::Compile: 0
+---
+abstract: 'Add plugin support for the Perl debugger'
+author:
+  - 'Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
   Test::Differences: 0
-  Test::More: 0
-  UNIVERSAL::require: 0
+  Test::More: 0.70
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: Module::Install version 0.68
+generated_by: 'Module::Install version 0.91'
 license: perl
-meta-spec: 
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
 name: DB-Pluggable
-no_index: 
-  directory: 
+no_index:
+  directory:
     - inc
     - t
-requires: 
+    - xt
+requires:
   Hook::LexWrap: 0
   Hook::Modular: 0
   perl: 5.6.0
-version: 0.02
+resources:
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable
+  homepage: http://search.cpan.org/dist/DB-Pluggable/
+  license: http://dev.perl.org/licenses/
+  repository: git://github.com/hanekomu/db-pluggable.git
+version: 0.04

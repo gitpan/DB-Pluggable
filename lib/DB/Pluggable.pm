@@ -1,83 +1,69 @@
 package DB::Pluggable;
-
+use 5.006;
 use strict;
 use warnings;
 use DB::Pluggable::Constants ':all';
 use Hook::LexWrap;
-
-
 use base 'Hook::Modular';
-
-
-our $VERSION = '0.02';
-
-
+our $VERSION = '0.04';
 use constant PLUGIN_NAMESPACE => 'DB::Pluggable';
-
 
 sub enable_watchfunction {
     my $self = shift;
     no warnings 'once';
     $DB::trace |= 4;    # Enable watchfunction
 }
-
-
-package # hide from PAUSE indexer
-    DB;
+package                 # hide from PAUSE indexer
+  DB;
 
 # switch package so as to get the desired stack trace
-
 sub watchfunction {
     return unless defined $DB::PluginHandler;
-
     my $depth = 1;
     while (1) {
         my ($package, $file, $line, $sub) = caller $depth;
         last unless defined $package;
         return if $sub =~ /::DESTROY$/;
-
         $depth++;
     }
-
     $DB::PluginHandler->run_hook('db.watchfunction');
 }
 
+sub afterinit {
+    return unless defined $DB::PluginHandler;
+    $DB::PluginHandler->run_hook('db.afterinit');
+}
 
 package DB::Pluggable;
 
-
 sub run {
     my $self = shift;
-
     $self->run_hook('plugin.init');
-
     our $cmd_b_wrapper = wrap 'DB::cmd_b', pre => sub {
         my ($cmd, $line, $dbline) = @_;
-
-        my @result = $self->run_hook('db.cmd.b', {
-            cmd    => $cmd,
-            line   => $line,
-            dbline => $dbline,
-        });
+        my @result = $self->run_hook(
+            'db.cmd.b',
+            {   cmd    => $cmd,
+                line   => $line,
+                dbline => $dbline,
+            }
+        );
 
         # short-circuit (i.e., don't call the original debugger function) if
         # a plugin has handled it
-
         $_[-1] = 1 if grep { $_ eq HANDLED } @result;
     };
 }
-
-
 1;
-
-
 __END__
 
-
+=for test_synopsis
+1;
+__END__
 
 =head1 NAME
 
-DB::Pluggable - add plugin support for the Perl debugger
+DB::Pluggable - Add plugin support for the Perl debugger
 
 =head1 SYNOPSIS
 
@@ -122,12 +108,12 @@ The following hooks exist:
 
 =over 4
 
-=item plugin.init
+=item C<plugin.init>
 
 Called at the beginning of the C<run()> method. The hook doesn't get any
 arguments.
 
-=item db.watchfunction
+=item C<db.watchfunction>
 
 Called from within C<DB::watchfunction()>. If you want the debugger to call
 the function, you need to enable it by calling C<enable_watchfunction()>
@@ -136,7 +122,7 @@ possible because it is being called very often. See the
 L<DB::Pluggable::BreakOnTestNumber> source code for an example. The hook
 doesn't get any arguments.
 
-=item db.cmd.b
+=item C<db.cmd.b>
 
 Called when the C<b> debugger command (used to set breakpoints) is invoked.
 See C<run()> below for what the hook should return.
@@ -145,17 +131,17 @@ The hook passes these named arguments:
 
 =over 4
 
-=item cmd
+=item C<cmd>
 
 This is the first argument passed to C<DB::cmd_b()>.
 
-=item line
+=item C<line>
 
 This is the second argument passed to C<DB::cmd_b()>. This is the most
 important argument as it contains the command line. See the
 L<DB::Pluggable::BreakOnTestNumber> source code for an example.
 
-=item dbline
+=item C<dbline>
 
 This is the third argument passed to C<DB::cmd_b()>.
 
@@ -167,12 +153,12 @@ This is the third argument passed to C<DB::cmd_b()>.
 
 =over 4
 
-=item enable_watchfunction
+=item C<enable_watchfunction>
 
 Tells the debugger to call C<DB::watchfunction()>, which in turn calls the
 C<db.watchfunction> hook on all plugins that have registered it.
 
-=item run
+=item C<run>
 
 First it calls the C<plugin.init> hook, then it enables hooks for the relevant
 debugger commands (see above for which hooks are available).
@@ -183,49 +169,13 @@ command, or C<DECLINED> if it didn't. If no hook has C<HANDLED> the command,
 the default command subroutine (e.g., C<DB::cmd_b()>) from C<perl5db.pl>
 will be called.
 
-
-
-
 =back
-
-DB::Pluggable inherits from L<Hook::Modular>.
-
-The superclass L<Hook::Modular> defines these methods and functions:
-
-    new(), add_plugin_path(), add_rewrite_task(), add_to_rule_namespaces(),
-    autoload_plugin(), bootstrap(), context(), dumper(), error(),
-    extract_package(), home_dir(), init(), is_loaded(), load_cache(),
-    load_plugin(), load_plugins(), log(), register_hook(),
-    rewrite_config(), rule_namespaces(), run_hook(), run_hook_once(),
-    run_main(), set_context(), should_log()
-
-The superclass L<Class::Accessor::Fast> defines these methods and
-functions:
-
-    make_accessor(), make_ro_accessor(), make_wo_accessor()
-
-The superclass L<Class::Accessor> defines these methods and functions:
-
-    _carp(), _croak(), _mk_accessors(), accessor_name_for(),
-    best_practice_accessor_name_for(), best_practice_mutator_name_for(),
-    follow_best_practice(), get(), mk_accessors(), mk_ro_accessors(),
-    mk_wo_accessors(), mutator_name_for(), set()
-
-=head1 TAGS
-
-If you talk about this module in blogs, on del.icio.us or anywhere else,
-please use the C<dbpluggable> tag.
-
-=head1 VERSION 
-                   
-This document describes version 0.02 of L<DB::Pluggable>.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
-Please report any bugs or feature requests to
-C<<bug-db-pluggable@rt.cpan.org>>, or through the web interface at
+Please report any bugs or feature requests through the web interface at
 L<http://rt.cpan.org>.
 
 =head1 INSTALLATION
@@ -236,19 +186,21 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/DB-Pluggable/>.
 
-=head1 AUTHOR
+The development version lives at L<http://github.com/hanekomu/db-pluggable/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
+
+=head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2008 by Marcel GrE<uuml>nauer
+Copyright 2008-2009 by Marcel GrE<uuml>nauer.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
-
 =cut
-
