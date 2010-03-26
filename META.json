@@ -9,7 +9,7 @@
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "version" : "1.100850",
+   "version" : "1.100851",
    "name" : "DB-Pluggable",
    "author" : [
       "Marcel Gruenauer <marcel@cpan.org>"
@@ -18,27 +18,27 @@
    "build_requires" : {},
    "provides" : {
       "DB" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable.pm"
       },
       "DB::Pluggable" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable.pm"
       },
       "DB::Pluggable::Plugin" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable/Plugin.pm"
       },
       "DB::Pluggable::TypeAhead" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable/TypeAhead.pm"
       },
       "DB::Pluggable::Constants" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable/Constants.pm"
       },
       "DB::Pluggable::BreakOnTestNumber" : {
-         "version" : "1.100850",
+         "version" : "1.100851",
          "file" : "lib/DB/Pluggable/BreakOnTestNumber.pm"
       }
    },

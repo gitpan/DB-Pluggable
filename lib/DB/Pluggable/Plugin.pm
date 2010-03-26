@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package DB::Pluggable::Plugin;
-our $VERSION = '1.100850';
+our $VERSION = '1.100851';
 # ABSTRACT: Base classes for DB::Pluggable plugins
 use parent 'Hook::Modular::Plugin';
 
@@ -14,6 +14,7 @@ sub make_command {
     *{$sub_name} = $code;
     $DB::alias{$cmd_name} = "/./; &$sub_name;";
 }
+1;
 
 
 __END__
@@ -25,7 +26,7 @@ DB::Pluggable::Plugin - Base classes for DB::Pluggable plugins
 
 =head1 VERSION
 
-version 1.100850
+version 1.100851
 
 =head1 SYNOPSIS
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package DB::Pluggable;
-our $VERSION = '1.100850';
+our $VERSION = '1.100851';
 # ABSTRACT: Add plugin support for the Perl debugger
 use DB::Pluggable::Constants ':all';
 use Hook::LexWrap;
@@ -34,12 +34,11 @@ sub run {
         $_[-1] = 1 if grep { $_ eq HANDLED } @result;
     };
 }
-
 1;
 
 package                 # hide from PAUSE indexer
   DB;
-our $VERSION = '1.100850';
+our $VERSION = '1.100851';
 
 # switch package so as to get the desired stack trace
 sub watchfunction {
@@ -58,7 +57,6 @@ sub afterinit {
     return unless defined $DB::PluginHandler;
     $DB::PluginHandler->run_hook('db.afterinit');
 }
-
 1;
 
 
@@ -71,7 +69,7 @@ DB::Pluggable - Add plugin support for the Perl debugger
 
 =head1 VERSION
 
-version 1.100850
+version 1.100851
 
 =head1 SYNOPSIS
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package DB::Pluggable::BreakOnTestNumber;
-our $VERSION = '1.100850';
+our $VERSION = '1.100851';
 # ABSTRACT: Debugger plugin to break on Test::Builder-based tests
 use DB::Pluggable::Constants ':all';
 use parent 'Hook::Modular::Plugin';
@@ -80,7 +80,7 @@ DB::Pluggable::BreakOnTestNumber - Debugger plugin to break on Test::Builder-bas
 
 =head1 VERSION
 
-version 1.100850
+version 1.100851
 
 =head1 SYNOPSIS
 

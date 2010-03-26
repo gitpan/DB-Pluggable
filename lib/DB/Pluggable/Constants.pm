@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package DB::Pluggable::Constants;
-our $VERSION = '1.100850';
+our $VERSION = '1.100851';
 # ABSTRACT: Constants for debugger plugin hook methods
 use Exporter qw(import);
 our %EXPORT_TAGS = (util => [qw(HANDLED DECLINED)],);
@@ -22,7 +22,7 @@ DB::Pluggable::Constants - Constants for debugger plugin hook methods
 
 =head1 VERSION
 
-version 1.100850
+version 1.100851
 
 =head1 SYNOPSIS
 
