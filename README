@@ -1,6 +1,9 @@
 NAME
     DB::Pluggable - Add plugin support for the Perl debugger
 
+VERSION
+    version 1.100850
+
 SYNOPSIS
         $ cat ~/.perldb
 
@@ -30,6 +33,21 @@ DESCRIPTION
 
     Plugins should live in the "DB::Pluggable::" namespace, like
     DB::Pluggable::BreakOnTestNumber does.
+
+METHODS
+  enable_watchfunction
+    Tells the debugger to call "DB::watchfunction()", which in turn calls
+    the "db.watchfunction" hook on all plugins that have registered it.
+
+  run
+    First it calls the "plugin.init" hook, then it enables hooks for the
+    relevant debugger commands (see above for which hooks are available).
+
+    Each command-related hook should return the appropriate constant from
+    DB::Pluggable::Constants - either "HANDLED" if the hook has handled the
+    command, or "DECLINED" if it didn't. If no hook has "HANDLED" the
+    command, the default command subroutine (e.g., "DB::cmd_b()") from
+    "perl5db.pl" will be called.
 
 HOOKS
     This class is very much in beta, so it's more like a proof of concept.
@@ -68,49 +86,32 @@ HOOKS
         "dbline"
             This is the third argument passed to "DB::cmd_b()".
 
-METHODS
-    "enable_watchfunction"
-        Tells the debugger to call "DB::watchfunction()", which in turn
-        calls the "db.watchfunction" hook on all plugins that have
-        registered it.
-
-    "run"
-        First it calls the "plugin.init" hook, then it enables hooks for the
-        relevant debugger commands (see above for which hooks are
-        available).
-
-        Each command-related hook should return the appropriate constant
-        from DB::Pluggable::Constants - either "HANDLED" if the hook has
-        handled the command, or "DECLINED" if it didn't. If no hook has
-        "HANDLED" the command, the default command subroutine (e.g.,
-        "DB::cmd_b()") from "perl5db.pl" will be called.
+INSTALLATION
+    See perlmodinstall for information and options on installing Perl
+    modules.
 
 BUGS AND LIMITATIONS
     No bugs have been reported.
 
     Please report any bugs or feature requests through the web interface at
-    <http://rt.cpan.org>.
-
-INSTALLATION
-    See perlmodinstall for information and options on installing Perl
-    modules.
+    <http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
 
 AVAILABILITY
     The latest version of this module is available from the Comprehensive
     Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
-    CPAN site near you. Or see <http://search.cpan.org/dist/DB-Pluggable/>.
+    CPAN site near you, or see <http://search.cpan.org/dist/DB-Pluggable/>.
 
     The development version lives at
-    <http://github.com/hanekomu/db-pluggable/>. Instead of sending patches,
+    <http://github.com/hanekomu/DB-Pluggable/>. Instead of sending patches,
     please fork this project using the standard git and github
     infrastructure.
 
-AUTHORS
-    Marcel Grünauer, "<marcel@cpan.org>"
+AUTHOR
+      Marcel Gruenauer <marcel@cpan.org>
 
 COPYRIGHT AND LICENSE
-    Copyright 2008-2009 by Marcel Grünauer.
+    This software is copyright (c) 2008 by Marcel Gruenauer.
 
-    This library is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

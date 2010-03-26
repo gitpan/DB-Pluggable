@@ -1,9 +1,12 @@
-package DB::Pluggable::BreakOnTestNumber;
+use 5.008;
 use strict;
 use warnings;
+
+package DB::Pluggable::BreakOnTestNumber;
+our $VERSION = '1.100850';
+# ABSTRACT: Debugger plugin to break on Test::Builder-based tests
 use DB::Pluggable::Constants ':all';
-our $VERSION = '0.04';
-use base 'Hook::Modular::Plugin';
+use parent 'Hook::Modular::Plugin';
 
 sub register {
     my ($self, $context) = @_;
@@ -61,15 +64,23 @@ sub watchfunction {
     return;
 }
 1;
-__END__
 
-=for test_synopsis
-1;
+
+__END__
+=pod
+
+=for stopwords watchfunction
+
+=for test_synopsis 1;
 __END__
 
 =head1 NAME
 
 DB::Pluggable::BreakOnTestNumber - Debugger plugin to break on Test::Builder-based tests
+
+=head1 VERSION
+
+version 1.100850
 
 =head1 SYNOPSIS
 
@@ -110,18 +121,16 @@ L<http://use.perl.org/~AndyArmstrong/journal/35792>.
 
 =head1 METHODS
 
-=over 4
-
-=item C<register>
+=head2 register
 
 Registers the hooks.
 
-=item C<plugin_init>
+=head2 plugin_init
 
 Hook handler for the C<plugin.init> hook. Does some initializations,
 surprisingly.
 
-=item C<cmd_b>
+=head2 cmd_b
 
 Hook handler for the C<db.cmd.b> hook. Checks whether the command is of the
 form C<b #12> or C<b #12, 34, ...>. If so, it sets breakpoints to break as
@@ -132,44 +141,45 @@ C<HANDLED>. If not, it returns C<DECLINED>.
 
 If it handles the command, it enables the C<watchfunction()>.
 
-=item C<watchfunction>
+=head2 watchfunction
 
 Hook handler for the C<db.watchfunction> hook. Checks the current test number
 from L<Test::Builder> and instructs the debugger to stop if an appropriate
 test number has been reached.
 
-=back
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/DB-Pluggable/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/DB-Pluggable/>.
 
-The development version lives at L<http://github.com/hanekomu/db-pluggable/>.
+The development version lives at
+L<http://github.com/hanekomu/DB-Pluggable/>.
 Instead of sending patches, please fork this project using the standard git
 and github infrastructure.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 by Marcel GrE<uuml>nauer.
+This software is copyright (c) 2008 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+

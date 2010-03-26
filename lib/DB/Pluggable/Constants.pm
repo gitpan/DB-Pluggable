@@ -1,18 +1,28 @@
-package DB::Pluggable::Constants;
+use 5.008;
 use strict;
 use warnings;
-our $VERSION = '0.04';
-use base 'Exporter';
+
+package DB::Pluggable::Constants;
+our $VERSION = '1.100850';
+# ABSTRACT: Constants for debugger plugin hook methods
+use Exporter qw(import);
 our %EXPORT_TAGS = (util => [qw(HANDLED DECLINED)],);
 our @EXPORT_OK = @{ $EXPORT_TAGS{all} = [ map { @$_ } values %EXPORT_TAGS ] };
 use constant HANDLED  => '200';
 use constant DECLINED => '500';
 1;
+
+
 __END__
+=pod
 
 =head1 NAME
 
 DB::Pluggable::Constants - Constants for debugger plugin hook methods
+
+=head1 VERSION
+
+version 1.100850
 
 =head1 SYNOPSIS
 
@@ -55,36 +65,39 @@ these constants to determine whether a command has been handled by one of the
 plugins or whether it should be passed on to the default command handler
 defined in C<perl5db.pl>.
 
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
+
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/DB-Pluggable/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/DB-Pluggable/>.
 
-The development version lives at L<http://github.com/hanekomu/db-pluggable/>.
+The development version lives at
+L<http://github.com/hanekomu/DB-Pluggable/>.
 Instead of sending patches, please fork this project using the standard git
 and github infrastructure.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2009 by Marcel GrE<uuml>nauer.
+This software is copyright (c) 2008 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
