@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package DB::Pluggable::BreakOnTestNumber;
-our $VERSION = '1.100851';
+BEGIN {
+  $DB::Pluggable::BreakOnTestNumber::VERSION = '1.101050';
+}
 # ABSTRACT: Debugger plugin to break on Test::Builder-based tests
 use DB::Pluggable::Constants ':all';
 use parent 'Hook::Modular::Plugin';
@@ -19,7 +21,6 @@ sub register {
 }
 
 sub plugin_init {
-    my ($self, $context, $args) = @_;
     @DB::testbreak = ();
 }
 
@@ -39,7 +40,7 @@ sub cmd_b {
 }
 
 sub watchfunction {
-    my ($self, $context, $args) = @_;
+    my $self = shift;
     if (@DB::testbreak && exists $INC{'Test/Builder.pm'}) {
         my $next = Test::Builder->new->current_test + 1;
         if ($next >= $DB::testbreak[0]) {
@@ -53,10 +54,6 @@ sub watchfunction {
                 $depth++;
             }
 
-            # Doesn't stop at the breakpoint without something like this in
-            # exactly this location. WTF?
-            use Data::Dumper;
-            my $dummy = Dumper $depth;
             no warnings 'once';
             $DB::stack[ -$depth ] = 1;
         }
@@ -80,7 +77,7 @@ DB::Pluggable::BreakOnTestNumber - Debugger plugin to break on Test::Builder-bas
 
 =head1 VERSION
 
-version 1.100851
+version 1.101050
 
 =head1 SYNOPSIS
 

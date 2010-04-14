@@ -4,7 +4,7 @@ use warnings;
 
  BEGIN { require 5.008; } 
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker 6.31;
 
 
 
@@ -15,36 +15,39 @@ my %WriteMakefileArgs = (
                        'NAME' => 'DB::Pluggable',
                        'DISTNAME' => 'DB-Pluggable',
                        'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.11'
+                                                 'ExtUtils::MakeMaker' => '6.31'
                                                },
                        'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>',
-                       'BUILD_REQUIRES' => {},
+                       'BUILD_REQUIRES' => {
+                                             'Test::More' => '0.94',
+                                             'Scalar::Util' => '0',
+                                             'Test::Differences' => '0',
+                                             'English' => '0',
+                                             'YAML' => '0',
+                                             'File::Find' => '0',
+                                             'File::Temp' => '0',
+                                             'Carp' => '0'
+                                           },
                        'ABSTRACT' => 'Add plugin support for the Perl debugger',
                        'EXE_FILES' => [],
-                       'VERSION' => '1.100851',
+                       'VERSION' => '1.101050',
                        'PREREQ_PM' => {
-                                        'Scalar::Util' => '0',
-                                        'English' => '0',
                                         'parent' => '0',
-                                        'YAML' => '0',
-                                        'Data::Dumper' => '0',
-                                        'constant' => '0',
-                                        'Exporter' => '0',
-                                        'Hook::LexWrap' => '0',
-                                        'Carp' => '0',
-                                        'Test::More' => '0.88',
-                                        'Test::Differences' => '0',
-                                        'File::Find' => '0',
                                         'Hook::Modular' => '0',
-                                        'File::Temp' => '0',
+                                        'constant' => '0',
+                                        'Hook::LexWrap' => '0',
+                                        'Exporter' => '0',
                                         'Hook::Modular::Plugin' => '0'
                                       },
                        'LICENSE' => 'perl'
                      );
 
 
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+delete $WriteMakefileArgs{BUILD_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.56) };
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
 

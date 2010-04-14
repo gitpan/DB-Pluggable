@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package DB::Pluggable::Plugin;
-our $VERSION = '1.100851';
+BEGIN {
+  $DB::Pluggable::Plugin::VERSION = '1.101050';
+}
 # ABSTRACT: Base classes for DB::Pluggable plugins
 use parent 'Hook::Modular::Plugin';
 
@@ -26,7 +28,7 @@ DB::Pluggable::Plugin - Base classes for DB::Pluggable plugins
 
 =head1 VERSION
 
-version 1.100851
+version 1.101050
 
 =head1 SYNOPSIS
 

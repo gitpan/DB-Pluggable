@@ -2,9 +2,27 @@ NAME
     DB::Pluggable - Add plugin support for the Perl debugger
 
 VERSION
-    version 1.100851
+    version 1.101050
 
 SYNOPSIS
+        $ cat ~/.perldb
+
+        use DB::Pluggable;
+        use Hook::Modular::Builder;
+        my $config = builder {
+            log_level 'error';
+            enable 'BreakOnTestNumber';
+            enable 'StackTraceAsHTML';
+            enable 'TypeAhead', type => [ '{l', 'c' ] if $ENV{DBTYPEAHEAD};
+            enable 'Dumper';
+        };
+
+        $DB::PluginHandler = DB::Pluggable->new(config => $config);
+        $DB::PluginHandler->run;
+
+    Alternatively, build the configuration yourself, for example, using
+    YAML:
+
         $ cat ~/.perldb
 
         use DB::Pluggable;
@@ -20,6 +38,8 @@ SYNOPSIS
         EOYAML
 
         $DB::PluginHandler->run;
+
+    Then:
 
         $ perl -d foo.pl
 
@@ -85,6 +105,42 @@ HOOKS
 
         "dbline"
             This is the third argument passed to "DB::cmd_b()".
+
+    "db.eval"
+        The debugger's "eval()" function is overridden so we can hook into
+        it. This is needed to define new debugger commands that take
+        arguments. Each plugin that registered this hook will get a chance
+        to inspect the command line, which is the last line in $DB::evalarg
+        and act on it. Each hook gets passed a code reference in the
+        original "DB::eval()" function. If a plugin decides the handle the
+        command, it needs to call the original function and return "HANDLED"
+        - see DB::Pluggable::Constants - to indicate that it has done so. If
+        a plugin does not want to handle the command, it must return
+        "DECLINED".
+
+        The hook passes these named arguments:
+
+        "eval"
+            The code reference to the original "DB::eval()" function.
+
+    For example, if you wanted to define a new "xx" debugger command, you
+    could use:
+
+        sub register {
+            my ($self, $context) = @_;
+            $context->register_hook(
+                $self,
+                'db.eval' => $self->can('eval'),
+            );
+        }
+
+        sub eval {
+            my ($self, $context, $args) = @_;
+            return DECLINED unless $DB::evalarg =~ s/\n\s*xx\s+([^\n]+)$/\n $1/;
+            ... # handle the actual command
+            $args->{eval}->();
+            HANDLED;
+        }
 
 INSTALLATION
     See perlmodinstall for information and options on installing Perl

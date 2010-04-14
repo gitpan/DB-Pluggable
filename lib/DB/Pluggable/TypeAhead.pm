@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package DB::Pluggable::TypeAhead;
-our $VERSION = '1.100851';
+BEGIN {
+  $DB::Pluggable::TypeAhead::VERSION = '1.101050';
+}
 # ABSTRACT: Debugger plugin to add type-ahead
 use DB::Pluggable::Constants ':all';
 use base 'Hook::Modular::Plugin';
@@ -14,7 +16,7 @@ sub register {
 }
 
 sub afterinit {
-    my ($self, $context, $args) = @_;
+    my $self = shift;
     my $type = $self->conf->{type};
     die "TypeAhead: need 'type' config key\n" unless defined $type;
     die "TypeAhead: 'type' must be an array reference of things to type\n"
@@ -23,6 +25,7 @@ sub afterinit {
     if (my $env_key = $self->conf->{ifenv}) {
         return unless $ENV{$env_key};
     }
+    no warnings 'once';
     push @DB::typeahead, @$type;
 }
 1;
@@ -42,7 +45,7 @@ DB::Pluggable::TypeAhead - Debugger plugin to add type-ahead
 
 =head1 VERSION
 
-version 1.100851
+version 1.101050
 
 =head1 SYNOPSIS
 
