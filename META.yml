@@ -22,22 +22,22 @@ name: DB-Pluggable
 provides:
   DB:
     file: lib/DB/Pluggable.pm
-    version: 1.101050
+    version: 1.101051
   DB::Pluggable:
     file: lib/DB/Pluggable.pm
-    version: 1.101050
+    version: 1.101051
   DB::Pluggable::BreakOnTestNumber:
     file: lib/DB/Pluggable/BreakOnTestNumber.pm
-    version: 1.101050
+    version: 1.101051
   DB::Pluggable::Constants:
     file: lib/DB/Pluggable/Constants.pm
-    version: 1.101050
+    version: 1.101051
   DB::Pluggable::Plugin:
     file: lib/DB/Pluggable/Plugin.pm
-    version: 1.101050
+    version: 1.101051
   DB::Pluggable::TypeAhead:
     file: lib/DB/Pluggable/TypeAhead.pm
-    version: 1.101050
+    version: 1.101051
 recommends: {}
 requires:
   Exporter: 0
@@ -51,4 +51,4 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable
   homepage: http://search.cpan.org/dist/DB-Pluggable/
   repository: http://github.com/hanekomu/DB-Pluggable
-version: 1.101050
+version: 1.101051

@@ -30,7 +30,7 @@ my %WriteMakefileArgs = (
                                            },
                        'ABSTRACT' => 'Add plugin support for the Perl debugger',
                        'EXE_FILES' => [],
-                       'VERSION' => '1.101050',
+                       'VERSION' => '1.101051',
                        'PREREQ_PM' => {
                                         'parent' => '0',
                                         'Hook::Modular' => '0',

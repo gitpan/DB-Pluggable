@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Constants;
 BEGIN {
-  $DB::Pluggable::Constants::VERSION = '1.101050';
+  $DB::Pluggable::Constants::VERSION = '1.101051';
 }
 # ABSTRACT: Constants for debugger plugin hook methods
 use Exporter qw(import);
@@ -24,7 +24,7 @@ DB::Pluggable::Constants - Constants for debugger plugin hook methods
 
 =head1 VERSION
 
-version 1.101050
+version 1.101051
 
 =head1 SYNOPSIS
 
