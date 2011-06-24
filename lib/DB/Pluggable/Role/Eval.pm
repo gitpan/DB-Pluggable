@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Role::Eval;
 BEGIN {
-  $DB::Pluggable::Role::Eval::VERSION = '1.111750';
+  $DB::Pluggable::Role::Eval::VERSION = '1.111751';
 }
 
 # ABSTRACT: Do something in the debugger's eval() function
@@ -23,7 +23,7 @@ DB::Pluggable::Role::Eval - Do something in the debugger's eval() function
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 IMPLEMENTING
 

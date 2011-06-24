@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Plugin::BreakOnTestNumber;
 BEGIN {
-  $DB::Pluggable::Plugin::BreakOnTestNumber::VERSION = '1.111750';
+  $DB::Pluggable::Plugin::BreakOnTestNumber::VERSION = '1.111751';
 }
 
 # ABSTRACT: Debugger plugin to break on Test::Builder-based tests
@@ -84,7 +84,7 @@ DB::Pluggable::Plugin::BreakOnTestNumber - Debugger plugin to break on Test::Bui
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 SYNOPSIS
 

@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable;
 BEGIN {
-  $DB::Pluggable::VERSION = '1.111750';
+  $DB::Pluggable::VERSION = '1.111751';
 }
 
 # ABSTRACT: Add plugin support for the Perl debugger
@@ -86,7 +86,7 @@ DB::Pluggable - Add plugin support for the Perl debugger
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 SYNOPSIS
 
@@ -121,12 +121,6 @@ L<DB::Pluggable::Plugin::BreakOnTestNumber> does.
 
 =head1 METHODS
 
-=head2 enable_watchfunction
-
-Tells the debugger to call C<DB::watchfunction()>, which in turn
-calls the C<watchfunction()> method of all plugins that consume the
-C<-WatchFunction> role.
-
 =head2 run_with_config
 
 Convenience class method to create, initialize and run the plugin
@@ -139,6 +133,12 @@ Like the method with the same name in L<Brickyard>.
 =head2 init_from_config
 
 Like the method with the same name in L<Brickyard>.
+
+=head2 enable_watchfunction
+
+Tells the debugger to call C<DB::watchfunction()>, which in turn
+calls the C<watchfunction()> method of all plugins that consume the
+C<-WatchFunction> role.
 
 =head2 run
 
@@ -164,12 +164,6 @@ See L<DB::Pluggable::Role::Initializer>.
 =item C<-WatchFunction>
 
 See L<DB::Pluggable::Role::WatchFunction>.
-
-=item C<-CmdBHandler>
-
-See L<DB::Pluggable::Role::CmdBHandler>. The C<cmd_b()> method
-implemented by a plugin consuming this role will get the same
-arguments as the C<DB::cmd_b()> function.
 
 =item C<-AfterInit>
 

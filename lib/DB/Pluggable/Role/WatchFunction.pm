@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Role::WatchFunction;
 BEGIN {
-  $DB::Pluggable::Role::WatchFunction::VERSION = '1.111750';
+  $DB::Pluggable::Role::WatchFunction::VERSION = '1.111751';
 }
 
 # ABSTRACT: Do something during the debugger's watchfunction()
@@ -25,7 +25,7 @@ DB::Pluggable::Role::WatchFunction - Do something during the debugger's watchfun
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 IMPLEMENTING
 

@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Role::AfterInit;
 BEGIN {
-  $DB::Pluggable::Role::AfterInit::VERSION = '1.111750';
+  $DB::Pluggable::Role::AfterInit::VERSION = '1.111751';
 }
 
 # ABSTRACT: Do something in the debugger's afterinit() function
@@ -25,7 +25,7 @@ DB::Pluggable::Role::AfterInit - Do something in the debugger's afterinit() func
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 IMPLEMENTING
 

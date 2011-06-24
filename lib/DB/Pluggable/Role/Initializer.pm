@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Role::Initializer;
 BEGIN {
-  $DB::Pluggable::Role::Initializer::VERSION = '1.111750';
+  $DB::Pluggable::Role::Initializer::VERSION = '1.111751';
 }
 
 # ABSTRACT: Something that initializes the plugin system
@@ -23,7 +23,7 @@ DB::Pluggable::Role::Initializer - Something that initializes the plugin system
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 IMPLEMENTING
 

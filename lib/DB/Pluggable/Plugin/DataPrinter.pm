@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Plugin::DataPrinter;
 BEGIN {
-  $DB::Pluggable::Plugin::DataPrinter::VERSION = '1.111750';
+  $DB::Pluggable::Plugin::DataPrinter::VERSION = '1.111751';
 }
 
 # ABSTRACT: Debugger plugin to use Data::Printer
@@ -31,7 +31,7 @@ DB::Pluggable::Plugin::DataPrinter - Debugger plugin to use Data::Printer
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 SYNOPSIS
 

@@ -45,39 +45,39 @@
    "provides" : {
       "DB" : {
          "file" : "lib/DB/Pluggable.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable" : {
          "file" : "lib/DB/Pluggable.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Plugin::BreakOnTestNumber" : {
          "file" : "lib/DB/Pluggable/Plugin/BreakOnTestNumber.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Plugin::DataPrinter" : {
          "file" : "lib/DB/Pluggable/Plugin/DataPrinter.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Plugin::TypeAhead" : {
          "file" : "lib/DB/Pluggable/Plugin/TypeAhead.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Role::AfterInit" : {
          "file" : "lib/DB/Pluggable/Role/AfterInit.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Role::Eval" : {
          "file" : "lib/DB/Pluggable/Role/Eval.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Role::Initializer" : {
          "file" : "lib/DB/Pluggable/Role/Initializer.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       },
       "DB::Pluggable::Role::WatchFunction" : {
          "file" : "lib/DB/Pluggable/Role/WatchFunction.pm",
-         "version" : "1.111750"
+         "version" : "1.111751"
       }
    },
    "release_status" : "stable",
@@ -93,6 +93,6 @@
          "web" : "http://github.com/hanekomu/DB-Pluggable"
       }
    },
-   "version" : "1.111750"
+   "version" : "1.111751"
 }
 

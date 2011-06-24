@@ -4,7 +4,7 @@ use warnings;
 
 package DB::Pluggable::Plugin::TypeAhead;
 BEGIN {
-  $DB::Pluggable::Plugin::TypeAhead::VERSION = '1.111750';
+  $DB::Pluggable::Plugin::TypeAhead::VERSION = '1.111751';
 }
 
 # ABSTRACT: Debugger plugin to add type-ahead
@@ -41,7 +41,7 @@ DB::Pluggable::Plugin::TypeAhead - Debugger plugin to add type-ahead
 
 =head1 VERSION
 
-version 1.111750
+version 1.111751
 
 =head1 SYNOPSIS
 
