@@ -2,42 +2,22 @@ NAME
     DB::Pluggable - Add plugin support for the Perl debugger
 
 VERSION
-    version 1.101051
+    version 1.111750
 
 SYNOPSIS
         $ cat ~/.perldb
-
         use DB::Pluggable;
-        use Hook::Modular::Builder;
-        my $config = builder {
-            log_level 'error';
-            enable 'BreakOnTestNumber';
-            enable 'StackTraceAsHTML';
-            enable 'TypeAhead', type => [ '{l', 'c' ] if $ENV{DBTYPEAHEAD};
-            enable 'Dumper';
-        };
+        DB::Pluggable->run_with_config(\<<EOINI)
+        [BreakOnTestNumber]
 
-        $DB::PluginHandler = DB::Pluggable->new(config => $config);
-        $DB::PluginHandler->run;
+        [TypeAhead]
+        type = {l
+        type = c
+        ifenv = DBTYPEAHEAD
 
-    Alternatively, build the configuration yourself, for example, using
-    YAML:
-
-        $ cat ~/.perldb
-
-        use DB::Pluggable;
-        use YAML;
-
-        $DB::PluginHandler = DB::Pluggable->new(config => Load <<EOYAML);
-        global:
-          log:
-            level: error
-
-        plugins:
-          - module: BreakOnTestNumber
-        EOYAML
-
-        $DB::PluginHandler->run;
+        [StackTraceAsHTML]
+        [DataPrinter]
+        EOINI
 
     Then:
 
@@ -45,77 +25,65 @@ SYNOPSIS
 
 DESCRIPTION
     This class adds plugin support to the Perl debugger. It is based on
-    Hook::Modular, so see its documentation for details.
+    Brickyard, so see its documentation for details.
 
     You need to have a "~/.perldb" file (see perldebug for details) that
-    invokes the plugin mechanism. The one in the synopsis will do, and there
-    is a more commented one in this distribution's "etc/perldb" file.
+    invokes the plugin mechanism.
 
-    Plugins should live in the "DB::Pluggable::" namespace, like
-    DB::Pluggable::BreakOnTestNumber does.
+    Plugins should live in the "DB::Pluggable::Plugin::" namespace, like
+    DB::Pluggable::Plugin::BreakOnTestNumber does.
 
 METHODS
   enable_watchfunction
     Tells the debugger to call "DB::watchfunction()", which in turn calls
-    the "db.watchfunction" hook on all plugins that have registered it.
+    the "watchfunction()" method of all plugins that consume the
+    "-WatchFunction" role.
+
+  run_with_config
+    Convenience class method to create, initialize and run the plugin system
+    with the given configuration file or scalar reference.
+
+  plugins_with
+    Like the method with the same name in Brickyard.
+
+  init_from_config
+    Like the method with the same name in Brickyard.
 
   run
-    First it calls the "plugin.init" hook, then it enables hooks for the
-    relevant debugger commands (see above for which hooks are available).
+    This method just calls the "initialize()" method of all plugins that
+    consume the "-Initializer" role.
 
-    Each command-related hook should return the appropriate constant from
-    DB::Pluggable::Constants - either "HANDLED" if the hook has handled the
-    command, or "DECLINED" if it didn't. If no hook has "HANDLED" the
-    command, the default command subroutine (e.g., "DB::cmd_b()") from
-    "perl5db.pl" will be called.
-
-HOOKS
+Plugin Phases
     This class is very much in beta, so it's more like a proof of concept.
-    Therefore, not all hooks imaginable have been added, only the ones to
-    make this demo work. If you want more hooks or if the current hooks
-    don't work for you, let me know.
+    Therefore, not all roles - which more or less correspond to plugin
+    phases - imaginable have been added, only the ones to make this demo
+    work. If you want more roles or if the current roles don't work for you,
+    let me know.
 
-    The following hooks exist:
+    The following roles exist:
 
-    "plugin.init"
-        Called at the beginning of the "run()" method. The hook doesn't get
-        any arguments.
+    "-Initializer"
+        See DB::Pluggable::Role::Initializer.
 
-    "db.watchfunction"
-        Called from within "DB::watchfunction()". If you want the debugger
-        to call the function, you need to enable it by calling
-        "enable_watchfunction()" somewhere within your plugin. It's a good
-        idea to enable it as late as possible because it is being called
-        very often. See the DB::Pluggable::BreakOnTestNumber source code for
-        an example. The hook doesn't get any arguments.
+    "-WatchFunction"
+        See DB::Pluggable::Role::WatchFunction.
 
-    "db.cmd.b"
-        Called when the "b" debugger command (used to set breakpoints) is
-        invoked. See "run()" below for what the hook should return.
+    "-CmdBHandler"
+        See DB::Pluggable::Role::CmdBHandler. The "cmd_b()" method
+        implemented by a plugin consuming this role will get the same
+        arguments as the "DB::cmd_b()" function.
 
-        The hook passes these named arguments:
+    "-AfterInit"
+        See DB::Pluggable::Role::AfterInit.
 
-        "cmd"
-            This is the first argument passed to "DB::cmd_b()".
-
-        "line"
-            This is the second argument passed to "DB::cmd_b()". This is the
-            most important argument as it contains the command line. See the
-            DB::Pluggable::BreakOnTestNumber source code for an example.
-
-        "dbline"
-            This is the third argument passed to "DB::cmd_b()".
-
-    "db.eval"
-        The debugger's "eval()" function is overridden so we can hook into
-        it. This is needed to define new debugger commands that take
-        arguments. Each plugin that registered this hook will get a chance
-        to inspect the command line, which is the last line in $DB::evalarg
-        and act on it. The plugin can return a code reference which will be
-        executed after the original "DB::eval()" function has finished.
-        Using the code reference you can undo any temporary changes you
-        might have introduced to make your command work. For example, read
-        the source code of DB::Pluggable::Dumper.
+    "-Eval"
+        See DB::Pluggable::Role::Eval. The debugger's "eval()" function is
+        overridden so we can make it pluggable. Each plugin will get a
+        chance to inspect the command line, which is the last line in
+        $DB::evalarg and act on it. The plugin can return a code reference
+        which will be executed after the original "DB::eval()" function has
+        finished. Using the code reference you can undo any temporary
+        changes you might have introduced to make your command work.
 
 INSTALLATION
     See perlmodinstall for information and options on installing Perl
@@ -133,12 +101,13 @@ AVAILABILITY
     CPAN site near you, or see <http://search.cpan.org/dist/DB-Pluggable/>.
 
     The development version lives at
-    <http://github.com/hanekomu/DB-Pluggable/>. Instead of sending patches,
-    please fork this project using the standard git and github
+    <http://github.com/hanekomu/DB-Pluggable> and may be cloned from
+    <git://github.com/hanekomu/DB-Pluggable.git>. Instead of sending
+    patches, please fork this project using the standard git and github
     infrastructure.
 
 AUTHOR
-      Marcel Gruenauer <marcel@cpan.org>
+    Marcel Gruenauer <marcel@cpan.org>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2008 by Marcel Gruenauer.

@@ -1,28 +1,24 @@
-use 5.008;
+use 5.010;
 use strict;
 use warnings;
 
-package DB::Pluggable::TypeAhead;
+package DB::Pluggable::Plugin::TypeAhead;
 BEGIN {
-  $DB::Pluggable::TypeAhead::VERSION = '1.101051';
+  $DB::Pluggable::Plugin::TypeAhead::VERSION = '1.111750';
 }
-# ABSTRACT: Debugger plugin to add type-ahead
-use DB::Pluggable::Constants ':all';
-use base 'Hook::Modular::Plugin';
 
-sub register {
-    my ($self, $context) = @_;
-    $context->register_hook($self, 'db.afterinit' => $self->can('afterinit'),);
-}
+# ABSTRACT: Debugger plugin to add type-ahead
+use Brickyard::Accessor rw => [qw(type ifenv)];
+use Role::Basic;
+with qw(DB::Pluggable::Role::AfterInit);
 
 sub afterinit {
     my $self = shift;
-    my $type = $self->conf->{type};
+    my $type = $self->type;
     die "TypeAhead: need 'type' config key\n" unless defined $type;
     die "TypeAhead: 'type' must be an array reference of things to type\n"
       unless ref $type eq 'ARRAY';
-    
-    if (my $env_key = $self->conf->{ifenv}) {
+    if (my $env_key = $self->ifenv) {
         return unless $ENV{$env_key};
     }
     no warnings 'once';
@@ -41,34 +37,22 @@ __END__
 
 =head1 NAME
 
-DB::Pluggable::TypeAhead - Debugger plugin to add type-ahead
+DB::Pluggable::Plugin::TypeAhead - Debugger plugin to add type-ahead
 
 =head1 VERSION
 
-version 1.101051
+version 1.111750
 
 =head1 SYNOPSIS
 
     $ cat ~/.perldb
-
     use DB::Pluggable;
-    use YAML;
-
-    $DB::PluginHandler = DB::Pluggable->new(config => Load <<EOYAML);
-    global:
-      log:
-        level: error
-
-    plugins:
-      - module: TypeAhead
-        config:
-            type: 
-                - '{l'
-                - 'c'
-        ifenv: DBTYPEAHEAD
-    EOYAML
-
-    $DB::PluginHandler->run;
+    DB::Pluggable->run_with_config(\<<EOINI)
+    [TypeAhead]
+    type = {l
+    type = c
+    ifenv = DBTYPEAHEAD
+    EOINI
 
 =head1 DESCRIPTION
 
@@ -94,13 +78,9 @@ L<http://blogs.perl.org/users/ovid/2010/02/easier-test-debugging.html>.
 
 =head1 METHODS
 
-=head2 register
-
-Registers the hooks.
-
 =head2 afterinit
 
-Hook handler for the C<db.afterinit> hook.
+Pushes the commands to the debugger's typeahead.
 
 =head1 INSTALLATION
 
@@ -117,17 +97,16 @@ L<http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see
-L<http://search.cpan.org/dist/DB-Pluggable/>.
+site near you, or see L<http://search.cpan.org/dist/DB-Pluggable/>.
 
-The development version lives at
-L<http://github.com/hanekomu/DB-Pluggable/>.
-Instead of sending patches, please fork this project using the standard git
-and github infrastructure.
+The development version lives at L<http://github.com/hanekomu/DB-Pluggable>
+and may be cloned from L<git://github.com/hanekomu/DB-Pluggable.git>.
+Instead of sending patches, please fork this project using the standard
+git and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

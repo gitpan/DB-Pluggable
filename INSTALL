@@ -1,14 +1,29 @@
 
 This is the Perl distribution DB-Pluggable.
 
-## Installation
+Installing DB-Pluggable is straightforward.
 
-DB-Pluggable installation is straightforward.
-If your CPAN shell is set up, you should just be able to do
+## Installation with cpanm
+
+If you have cpanm, you only need one line:
+
+    % cpanm DB::Pluggable
+
+If you are installing into a system-wide directory, you may need to pass the
+"-S" flag to cpanm, which uses sudo to install the module:
+
+    % cpanm -S DB::Pluggable
+
+## Installing with the CPAN shell
+
+Alternatively, if your CPAN shell is set up, you should just be able to do:
 
     % cpan DB::Pluggable
 
-Download it, unpack it, then build it as per the usual:
+## Manual installation
+
+As a last resort, you can manually install it. Download the tarball, untar it,
+then build it:
 
     % perl Makefile.PL
     % make && make test
@@ -17,11 +32,13 @@ Then install it:
 
     % make install
 
+If you are installing into a system-wide directory, you may need to run:
+
+    % sudo make install
+
 ## Documentation
 
-DB-Pluggable documentation is available as in POD.
-So you can do:
+DB-Pluggable documentation is available as POD.
+You can run perldoc from a shell to read the documentation:
 
     % perldoc DB::Pluggable
-
-to read the documentation with your favorite pager.

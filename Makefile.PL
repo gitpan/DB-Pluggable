@@ -2,49 +2,58 @@
 use strict;
 use warnings;
 
- BEGIN { require 5.008; } 
+use 5.010;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => 't/*.t'
-                                 },
-                       'NAME' => 'DB::Pluggable',
-                       'DISTNAME' => 'DB-Pluggable',
-                       'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.31'
-                                               },
-                       'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>',
-                       'BUILD_REQUIRES' => {
-                                             'Test::More' => '0.94',
-                                             'Scalar::Util' => '0',
-                                             'Test::Differences' => '0',
-                                             'English' => '0',
-                                             'YAML' => '0',
-                                             'File::Find' => '0',
-                                             'File::Temp' => '0',
-                                             'Carp' => '0'
-                                           },
-                       'ABSTRACT' => 'Add plugin support for the Perl debugger',
-                       'EXE_FILES' => [],
-                       'VERSION' => '1.101051',
-                       'PREREQ_PM' => {
-                                        'parent' => '0',
-                                        'Hook::Modular' => '0',
-                                        'constant' => '0',
-                                        'Hook::LexWrap' => '0',
-                                        'Exporter' => '0',
-                                        'Hook::Modular::Plugin' => '0'
-                                      },
-                       'LICENSE' => 'perl'
-                     );
+  'ABSTRACT' => 'Add plugin support for the Perl debugger',
+  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>',
+  'BUILD_REQUIRES' => {
+    'Carp' => '0',
+    'English' => '0',
+    'File::Find' => '0',
+    'File::Temp' => '0',
+    'Scalar::Util' => '0',
+    'Test::More' => '0.94'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.30'
+  },
+  'DISTNAME' => 'DB-Pluggable',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'DB::Pluggable',
+  'PREREQ_PM' => {
+    'Brickyard' => '1.111750',
+    'Brickyard::Accessor' => '0',
+    'Brickyard::Role::Plugin' => '0',
+    'Data::Printer' => '0',
+    'Hook::LexWrap' => '0',
+    'Role::Basic' => '0',
+    'Test::Builder' => '0'
+  },
+  'VERSION' => '1.111750',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
+);
 
 
-delete $WriteMakefileArgs{BUILD_REQUIRES}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.56) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };

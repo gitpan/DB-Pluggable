@@ -1,5 +1,9 @@
 Revision history for Perl extension DB-Pluggable
 
+1.111750  2011-06-24 23:04:34 Europe/Vienna
+    - complete rewrite to move from Hook::Modular to Brickyard - it's more
+      lightweight and easier to use
+
 1.101051  2010-04-15 18:01:53 Europe/Vienna
     - fixed the db.eval hook handler
 
