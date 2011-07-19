@@ -1,5 +1,8 @@
 Revision history for Perl extension DB-Pluggable
 
+1.112000  2011-07-19 20:30:08 Europe/Vienna
+    - doc fix for the Data::Printer plugin (thanks garu)
+
 1.111751  2011-06-24 23:54:05 Europe/Vienna
     - doc fix: don't mention nonexistent roles. :)
 

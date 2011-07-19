@@ -1,13 +1,7 @@
-use 5.010;
+package DB::Pluggable::Plugin::BreakOnTestNumber;
 use strict;
 use warnings;
-
-package DB::Pluggable::Plugin::BreakOnTestNumber;
-BEGIN {
-  $DB::Pluggable::Plugin::BreakOnTestNumber::VERSION = '1.111751';
-}
-
-# ABSTRACT: Debugger plugin to break on Test::Builder-based tests
+use 5.010;
 use Role::Basic;
 use Hook::LexWrap;
 use Test::Builder;    # preload so we can "safely" overwrite lock()
@@ -69,8 +63,6 @@ sub watchfunction {
 }
 1;
 
-
-__END__
 =pod
 
 =for stopwords watchfunction
@@ -81,10 +73,6 @@ __END__
 =head1 NAME
 
 DB::Pluggable::Plugin::BreakOnTestNumber - Debugger plugin to break on Test::Builder-based tests
-
-=head1 VERSION
-
-version 1.111751
 
 =head1 SYNOPSIS
 
@@ -135,39 +123,3 @@ this plugin will break C<Test::Builder> when using threads.
 
 Checks the current test number from L<Test::Builder> and instructs the
 debugger to stop if an appropriate test number has been reached.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
-
-=head1 BUGS AND LIMITATIONS
-
-No bugs have been reported.
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
-
-=head1 AVAILABILITY
-
-The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see L<http://search.cpan.org/dist/DB-Pluggable/>.
-
-The development version lives at L<http://github.com/hanekomu/DB-Pluggable>
-and may be cloned from L<git://github.com/hanekomu/DB-Pluggable.git>.
-Instead of sending patches, please fork this project using the standard
-git and github infrastructure.
-
-=head1 AUTHOR
-
-Marcel Gruenauer <marcel@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2008 by Marcel Gruenauer.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut
-

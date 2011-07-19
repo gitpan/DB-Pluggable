@@ -1,15 +1,10 @@
-use 5.010;
+package DB::Pluggable;
 use strict;
 use warnings;
-
-package DB::Pluggable;
-BEGIN {
-  $DB::Pluggable::VERSION = '1.111751';
-}
-
-# ABSTRACT: Add plugin support for the Perl debugger
+use 5.010;
 use Brickyard::Accessor new => 1, rw => [qw(brickyard)];
 use Brickyard 1.111750;
+our $VERSION = '1.112000';
 
 sub run_with_config {
     my $file = $_[1];
@@ -73,8 +68,6 @@ my $DB_eval = \&DB::eval;
 };
 1;
 
-
-__END__
 =pod
 
 =for test_synopsis 1;
@@ -83,10 +76,6 @@ __END__
 =head1 NAME
 
 DB::Pluggable - Add plugin support for the Perl debugger
-
-=head1 VERSION
-
-version 1.111751
 
 =head1 SYNOPSIS
 
@@ -181,38 +170,20 @@ introduced to make your command work.
 
 =back
 
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
-
-=head1 BUGS AND LIMITATIONS
-
-No bugs have been reported.
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable>.
-
-=head1 AVAILABILITY
-
-The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see L<http://search.cpan.org/dist/DB-Pluggable/>.
-
-The development version lives at L<http://github.com/hanekomu/DB-Pluggable>
-and may be cloned from L<git://github.com/hanekomu/DB-Pluggable.git>.
-Instead of sending patches, please fork this project using the standard
-git and github infrastructure.
-
 =head1 AUTHOR
+
+The following person is the author of all the files provided in
+this distribution unless explicitly noted otherwise.
 
 Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Marcel Gruenauer.
+The following copyright notice applies to all the files provided in
+this distribution, including binary files, unless explicitly noted
+otherwise.
+
+This software is copyright (c) 2008-2011 by Marcel Gruenauer.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
-=cut
-

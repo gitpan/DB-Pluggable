@@ -3,49 +3,20 @@ abstract: 'Add plugin support for the Perl debugger'
 author:
   - 'Marcel Gruenauer <marcel@cpan.org>'
 build_requires:
-  Carp: 0
-  English: 0
-  File::Find: 0
-  File::Temp: 0
-  Scalar::Util: 0
-  Test::More: 0.94
+  ExtUtils::MakeMaker: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
-dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110930'
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: DB-Pluggable
-provides:
-  DB:
-    file: lib/DB/Pluggable.pm
-    version: 1.111751
-  DB::Pluggable:
-    file: lib/DB/Pluggable.pm
-    version: 1.111751
-  DB::Pluggable::Plugin::BreakOnTestNumber:
-    file: lib/DB/Pluggable/Plugin/BreakOnTestNumber.pm
-    version: 1.111751
-  DB::Pluggable::Plugin::DataPrinter:
-    file: lib/DB/Pluggable/Plugin/DataPrinter.pm
-    version: 1.111751
-  DB::Pluggable::Plugin::TypeAhead:
-    file: lib/DB/Pluggable/Plugin/TypeAhead.pm
-    version: 1.111751
-  DB::Pluggable::Role::AfterInit:
-    file: lib/DB/Pluggable/Role/AfterInit.pm
-    version: 1.111751
-  DB::Pluggable::Role::Eval:
-    file: lib/DB/Pluggable/Role/Eval.pm
-    version: 1.111751
-  DB::Pluggable::Role::Initializer:
-    file: lib/DB/Pluggable/Role/Initializer.pm
-    version: 1.111751
-  DB::Pluggable::Role::WatchFunction:
-    file: lib/DB/Pluggable/Role/WatchFunction.pm
-    version: 1.111751
+no_index:
+  directory:
+    - t
+    - inc
 requires:
   Brickyard: 1.111750
   Brickyard::Accessor: 0
@@ -54,9 +25,4 @@ requires:
   Hook::LexWrap: 0
   Role::Basic: 0
   Test::Builder: 0
-  perl: 5.010
-resources:
-  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=DB-Pluggable
-  homepage: http://search.cpan.org/dist/DB-Pluggable/
-  repository: git://github.com/hanekomu/DB-Pluggable.git
-version: 1.111751
+version: 1.112000
