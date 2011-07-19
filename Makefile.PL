@@ -1,11 +1,11 @@
 use strict;
 use warnings;
 use ExtUtils::MakeMaker 6.58;
+my $from = 'lib/DB/Pluggable.pm';
 WriteMakefile(
-    ABSTRACT           => 'Add plugin support for the Perl debugger',
+    ABSTRACT_FROM      => $from,
     AUTHOR             => 'Marcel Gruenauer <marcel@cpan.org>',
-    CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => '6.30' },
-    DISTNAME           => 'DB-Pluggable',
+    CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => '6.58' },
     LICENSE            => 'perl',
     NAME               => 'DB::Pluggable',
     PREREQ_PM          => {
@@ -17,6 +17,6 @@ WriteMakefile(
         'Role::Basic'             => '0',
         'Test::Builder'           => '0'
     },
-    VERSION => '1.112000',
-    test    => { TESTS => 't/*.t' }
+    VERSION_FROM => $from,
+    test         => { TESTS => 't/*.t' }
 );

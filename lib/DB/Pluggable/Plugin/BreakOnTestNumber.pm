@@ -9,6 +9,7 @@ with qw(
   DB::Pluggable::Role::Initializer
   DB::Pluggable::Role::WatchFunction
 );
+our $VERSION = '1.112001';
 
 sub initialize {
     @DB::testbreak = ();

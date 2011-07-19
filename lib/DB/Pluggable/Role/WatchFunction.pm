@@ -5,6 +5,7 @@ use 5.010;
 use Role::Basic;
 with qw(Brickyard::Role::Plugin);
 requires qw(watchfunction);
+our $VERSION = '1.112001';
 1;
 
 =pod

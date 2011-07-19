@@ -4,7 +4,7 @@ use warnings;
 use 5.010;
 use Brickyard::Accessor new => 1, rw => [qw(brickyard)];
 use Brickyard 1.111750;
-our $VERSION = '1.112000';
+our $VERSION = '1.112001';
 
 sub run_with_config {
     my $file = $_[1];

@@ -5,6 +5,7 @@ use 5.010;
 use Role::Basic;
 use Data::Printer; # to make it a requirement
 with qw(DB::Pluggable::Role::Initializer);
+our $VERSION = '1.112001';
 
 sub initialize {
     no warnings 'once';
